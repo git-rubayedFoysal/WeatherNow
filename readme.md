@@ -2,6 +2,8 @@
 
 A clean, responsive weather web app that shows real-time current conditions, hourly forecast, and a 7-day daily forecast for any city in the world.
 
+🔗 **Live Demo:** [https://wxnow-weather.vercel.app/](https://wxnow-weather.vercel.app/)
+
 ---
 
 ## 📸 Preview
