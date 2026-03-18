@@ -74,7 +74,7 @@ form.addEventListener("submit", (e) => {
  * @returns The `findLocation` function is returning a Promise.
  */
 async function findLocation(city) {
-  const url = `http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=c00ffc5e5041e452338f7b030ce4b484`;
+  const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=c00ffc5e5041e452338f7b030ce4b484`;
 
   setLoading(true);
 
