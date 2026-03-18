@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WeatherNow</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>⛅</text></svg>" />
+    <link rel="stylesheet" href="./style.css" />
+    <script
+      src="https://kit.fontawesome.com/19ae868886.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>WeatherNow ⛅</h1>
+      </div>
+      <div class="wrapper">
+        <div class="left-menu">
+          <form>
+            <input
+              type="text"
+              placeholder="Enter City..."
+              name="city"
+              id="city"
+            />
+            <button type="submit">Search</button>
+          </form>
+
+          <div id="error-msg" class="error-msg hidden">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="error-text"></span>
+          </div>
+
+          <div class="current">
+            <div class="current-up">
+              <h2 id="curr-city">Dhaka</h2>
+              <h1>
+                <span id="curr-icon"></span> <span id="curr-temp"></span>
+                <sup><span id="unit" class="unit">°C</span></sup>
+              </h1>
+              <h3 id="des"></h3>
+            </div>
+
+            <div class="current-down">
+              <div id="feels-like" class="box">
+                <h3><i class="fa-solid fa-temperature-low"></i> Feels Like</h3>
+                <h1> <span id="feels"></span>
+                  <sup><span class="unit">°C</span></sup>
+                </h1>
+              </div>
+              <div class="box">
+                <h3><i class="fa-solid fa-tint"></i> Humidity</h3>
+                <h1> <span id="humidity"></span><span class="unit">%</span></h1>
+              </div>
+              <div class="box">
+                <h3><i class="fa-solid fa-wind"></i> Wind</h3>
+                <h1> <span id="wind"></span> <span class="unit">km/h</span></h1>
+              </div>
+              <div class="box">
+                <h3><i class="fa-solid fa-sun"></i> UV Index</h3>
+                <h1> <span id="uv"></span> <span class="unit risk"></span></h1>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-menu">
+            <h2 class="forecst-title">Hourly Forecast</h2>
+          <div class="hourly" id="hourly">
+            <template id="hour-templete">          
+            <div class="card-hour">
+              <div class="time"></div>
+              <div class="hour-icon"></i></div>
+              <div class="hour-temp">
+                <span id="hourly-temp"></span><sup><span class="unit-right">°C</span></sup>
+              </div>
+              <div class="rain-wrap">
+                <div class="hour-rain">
+                  <i class="fa-solid fa-droplet"></i><span id="pro"></span>
+                </div>
+                <div class="hour-rain">
+                  <i class="fa-solid fa-droplet"></i
+                  ><span id="rainmm"></span>
+                </div>
+              </div>
+            </div>
+            </template>
+          </div>
+
+
+          <h2 class="forecst-title">7-Day Forecast</h2>
+          <div class="daily" id="daily">
+            <template id="day-templete">
+                <div class="card-day">
+              <div class="day-date">
+                <p class="day"></p>
+              </div>
+              <div class="day-icon"></div>
+              <div class="day-temp">
+                <p>
+                  <span id="max"></span><sup><span class="unit-right">°C</span></sup
+                  >/
+                  <span id="min"></span><sup><span class="unit-right">°C</span></sup></span
+                  >
+                </p>
+                <p class="uv"></p>
+              </div>
+            </div>
+            </template>
+          </div>
+        </div>
+      </div>
+      <footer class="footer">
+        <p>Rubayed Ahmed Foysal &nbsp;|&nbsp; <a href="https://github.com/git-rubayedFoysal" target="_blank"><i class="fa-brands fa-github"></i> git-rubayedFoysal</a></p>
+      </footer>
+    </div>
+    <script src="./main.js"></script>
+  </body>
+</html>

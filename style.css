@@ -1,0 +1,871 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap");
+
+/* ── CSS Variables ───────────────────────────────── */
+
+:root {
+  --sky-1: #dbeafe;
+  --sky-2: #bfdbfe;
+  --sky-3: #93c5fd;
+  --accent: #0ea5e9;
+  --accent-dark: #0284c7;
+  --accent-soft: #e0f2fe;
+  --white: #ffffff;
+  --glass: rgba(255, 255, 255, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.8);
+  --glass-shadow: rgba(14, 165, 233, 0.12);
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border: rgba(148, 197, 253, 0.4);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+/* ── Reset ───────────────────────────────────────── */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+/* ── Body & Background ───────────────────────────── */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  font-family: "DM Sans", sans-serif;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at 20% 0%, #bae6fd 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, #e0f2fe 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 100%, #dbeafe 0%, transparent 60%),
+    linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 40%, #dbeafe 100%);
+  background-attachment: fixed;
+  transition:
+    background 0.5s ease,
+    color 0.5s ease;
+}
+
+/* ── Night mode ──────────────────────────────────── */
+
+body.night {
+  --glass: rgba(15, 30, 50, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: rgba(0, 0, 0, 0.3);
+  --card-bg: rgba(15, 30, 50, 0.7);
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --border: rgba(46, 61, 80, 0.8);
+  background:
+    radial-gradient(ellipse at 20% 0%, #0c1f35 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 10%, #0d1b2a 0%, transparent 50%),
+    linear-gradient(160deg, #0d1b2a 0%, #1b263b 60%, #0f2336 100%);
+}
+
+/* wrapper glass background */
+body.night .wrapper {
+  background: rgba(10, 20, 35, 0.7);
+}
+
+/* panels */
+body.night .left-menu,
+body.night .right-menu {
+  background: rgba(15, 30, 50, 0.85);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+/* current weather panel */
+body.night .current {
+  color: var(--text-primary);
+}
+body.night .current-up {
+  background: linear-gradient(
+    145deg,
+    rgba(15, 30, 50, 0.95) 0%,
+    rgba(20, 40, 65, 0.8) 100%
+  );
+  border-color: var(--border);
+}
+body.night #curr-city {
+  color: var(--text-primary);
+  border-color: var(--border);
+}
+body.night #des {
+  color: var(--text-secondary);
+}
+body.night .unit {
+  color: var(--text-secondary);
+}
+
+/* stat boxes */
+body.night .box {
+  background: linear-gradient(
+    145deg,
+    rgba(20, 38, 60, 0.95) 0%,
+    rgba(15, 30, 50, 0.8) 100%
+  );
+  border-color: var(--border);
+}
+body.night .box > h3 {
+  color: var(--text-secondary);
+}
+body.night .box > h1 {
+  color: var(--text-primary);
+}
+
+/* input */
+body.night input {
+  background: rgba(15, 30, 50, 0.8);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+/* hourly strip */
+body.night .hourly {
+  background: rgba(10, 20, 35, 0.6);
+  border-color: var(--border);
+}
+body.night .card-hour {
+  background: linear-gradient(
+    160deg,
+    rgba(20, 38, 60, 0.95) 0%,
+    rgba(15, 30, 50, 0.7) 100%
+  );
+  border-color: var(--border);
+}
+body.night .card-hour:first-child {
+  border-color: var(--accent);
+  background: linear-gradient(
+    160deg,
+    rgba(14, 60, 100, 0.9) 0%,
+    rgba(10, 40, 70, 0.7) 100%
+  );
+}
+body.night .time {
+  color: var(--text-secondary);
+}
+body.night .hour-temp {
+  color: var(--text-primary);
+}
+body.night .hour-rain {
+  color: var(--text-muted);
+}
+
+/* daily strip */
+body.night .daily {
+  background: rgba(10, 20, 35, 0.6);
+  border-color: var(--border);
+}
+body.night .card-day {
+  background: linear-gradient(
+    145deg,
+    rgba(20, 38, 60, 0.95) 0%,
+    rgba(15, 30, 50, 0.7) 100%
+  );
+  border-color: var(--border);
+}
+body.night .day {
+  color: var(--text-primary);
+}
+body.night .day-temp p {
+  color: var(--text-primary);
+}
+body.night .uv {
+  color: var(--text-muted);
+}
+
+/* forecast titles */
+body.night .forecst-title {
+  color: var(--text-secondary);
+}
+body.night .right-menu {
+  color: var(--text-primary);
+}
+
+/* ── Container ───────────────────────────────────── */
+
+.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 32px auto;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow:
+    0 4px 6px rgba(14, 165, 233, 0.06),
+    0 20px 60px rgba(14, 165, 233, 0.12),
+    0 1px 0 rgba(255, 255, 255, 0.8) inset;
+  border: 1.5px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+}
+
+/* ── Header ──────────────────────────────────────── */
+
+.header > h1 {
+  padding: 18px 24px;
+  text-align: center;
+  font-family: "Outfit", sans-serif;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  background: linear-gradient(
+    135deg,
+    var(--accent) 0%,
+    #38bdf8 50%,
+    #7dd3fc 100%
+  );
+  color: var(--white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ── Wrapper ─────────────────────────────────────── */
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  padding: 20px;
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+}
+
+/* ── Left & Right menus ──────────────────────────── */
+
+.left-menu {
+  grid-column: 1 / span 5;
+  padding: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px var(--glass-shadow);
+}
+
+.right-menu {
+  grid-column: 6 / -1;
+  padding: 16px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px var(--glass-shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  color: var(--text-primary);
+}
+
+/* ── Search form ─────────────────────────────────── */
+
+form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 10px 14px;
+  margin: 8px 0;
+  font-size: 0.95rem;
+  font-family: "DM Sans", sans-serif;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-sm);
+  border: 1.5px solid var(--border);
+  color: var(--text-primary);
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+button {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, var(--accent) 0%, #38bdf8 100%);
+  color: var(--white);
+  border: none;
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    opacity 0.15s;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.35);
+  white-space: nowrap;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.45);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* ── Error message ───────────────────────────────── */
+
+.error-msg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 6px 0;
+  padding: 10px 14px;
+  background: #fef2f2;
+  border: 1.5px solid #fca5a5;
+  border-radius: var(--radius-sm);
+  color: #dc2626;
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.error-msg i {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── Loading button ──────────────────────────────── */
+
+button.loading {
+  opacity: 0.65;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+button.loading::after {
+  content: " ⏳";
+}
+
+/* ── Current weather ─────────────────────────────── */
+
+.current {
+  color: var(--text-primary);
+}
+
+.current-up {
+  padding: 20px 16px;
+  text-align: center;
+  border-radius: var(--radius-md);
+  margin: 14px 0 0;
+  border: 1.5px solid var(--border);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(224, 242, 254, 0.6) 100%
+  );
+  box-shadow: 0 2px 10px var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* decorative blur blob behind weather icon */
+.current-up::before {
+  content: "";
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(
+    circle,
+    rgba(14, 165, 233, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+#curr-city {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text-primary);
+  border-bottom: 1.5px solid var(--border);
+  padding: 0 10px 10px;
+  text-transform: capitalize;
+}
+
+.current-up > h1 {
+  font-family: "Outfit", sans-serif;
+  font-size: 3.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 12px 0 4px;
+  line-height: 1;
+}
+
+#curr-icon {
+  font-size: 2.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+#des {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.unit {
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+}
+
+/* ── Stats boxes ─────────────────────────────────── */
+
+.current-down {
+  margin-top: 14px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+  width: 100%;
+}
+
+.box {
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  border: 1.5px solid var(--border);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(240, 249, 255, 0.7) 100%
+  );
+  box-shadow: 0 1px 6px var(--glass-shadow);
+  min-height: 88px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px var(--glass-shadow);
+}
+
+.box > h3 {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.box > h3 i {
+  color: var(--accent);
+  font-size: 0.85rem;
+}
+
+.box > h1 {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.risk {
+  font-family: "DM Sans", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+/* ── Forecast section titles ─────────────────────── */
+
+.forecst-title {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin: 0;
+  padding-left: 2px;
+}
+
+/* ── Hourly forecast ─────────────────────────────── */
+
+.hourly {
+  padding: 10px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 1px 6px var(--glass-shadow);
+  -webkit-overflow-scrolling: touch;
+}
+
+.card-hour {
+  padding: 12px 10px;
+  text-align: center;
+  border-radius: var(--radius-sm);
+  min-width: 88px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border: 1.5px solid var(--border);
+  min-height: 130px;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(224, 242, 254, 0.5) 100%
+  );
+  box-shadow: 0 1px 4px var(--glass-shadow);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.card-hour:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px var(--glass-shadow);
+}
+
+/* highlight the "Now" card */
+.card-hour:first-child {
+  border-color: var(--accent);
+  background: linear-gradient(
+    160deg,
+    rgba(224, 242, 254, 0.95) 0%,
+    rgba(186, 230, 253, 0.6) 100%
+  );
+}
+
+.time {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.03em;
+}
+
+.hour-icon {
+  font-size: 1.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.08));
+}
+
+.hour-temp {
+  font-family: "Outfit", sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.hour-rain {
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.hour-rain i {
+  color: var(--accent);
+  font-size: 0.65rem;
+}
+
+.rain-wrap {
+  display: flex;
+  gap: 6px;
+}
+
+/* ── Daily forecast ──────────────────────────────── */
+
+.daily {
+  border: 1.5px solid var(--border);
+  padding: 8px;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.5);
+  box-shadow: 0 1px 6px var(--glass-shadow);
+  overflow-y: auto;
+  max-height: 260px;
+}
+
+.card-day {
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.85) 0%,
+    rgba(240, 249, 255, 0.5) 100%
+  );
+  box-shadow: 0 1px 3px var(--glass-shadow);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.card-day:hover {
+  transform: translateX(3px);
+  box-shadow: 0 3px 10px var(--glass-shadow);
+}
+
+.day {
+  font-family: "Outfit", sans-serif;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.day-icon {
+  font-size: 1.7rem;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.08));
+}
+
+.day-temp {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  align-items: center;
+}
+
+.day-temp p {
+  font-family: "Outfit", sans-serif;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.88rem;
+}
+
+.unit-right {
+  font-size: 0.6rem;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.uv {
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--text-muted);
+}
+
+/* ── Scrollbar ───────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--sky-3);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ── Tablet: max 1024px ──────────────────────────── */
+
+@media (max-width: 1024px) {
+  .container {
+    width: 96%;
+    margin: 20px auto;
+  }
+
+  /* stack panels vertically */
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  .left-menu,
+  .right-menu {
+    width: 100%;
+  }
+
+  /* daily forecast — show all cards, no scroll */
+  .daily {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  /* stat boxes — 2 per row */
+  .current-down {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* ── Mobile: max 600px ───────────────────────────── */
+
+@media (max-width: 600px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+
+  .wrapper {
+    padding: 12px;
+    gap: 12px;
+  }
+
+  .left-menu,
+  .right-menu {
+    padding: 12px;
+    border-radius: var(--radius-sm);
+  }
+
+  .header > h1 {
+    font-size: 1.3rem;
+    padding: 14px;
+  }
+
+  .current-up {
+    padding: 16px 12px;
+  }
+
+  .current-up > h1 {
+    font-size: 2.4rem;
+  }
+
+  #curr-icon {
+    font-size: 2.2rem;
+  }
+
+  .current-down {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+
+  .box {
+    min-height: 76px;
+    padding: 12px;
+  }
+
+  .box > h1 {
+    font-size: 1.2rem;
+  }
+
+  .card-hour {
+    min-width: 76px;
+    min-height: 118px;
+    padding: 10px 6px;
+  }
+
+  .hour-icon {
+    font-size: 1.3rem;
+  }
+  .hour-temp {
+    font-size: 0.9rem;
+  }
+
+  .card-day {
+    padding: 8px 10px;
+    gap: 6px;
+    font-size: 0.82rem;
+  }
+
+  .day-icon {
+    font-size: 1.4rem;
+  }
+
+  button {
+    padding: 10px 14px;
+    font-size: 0.85rem;
+  }
+}
+
+/* ── Footer ──────────────────────────────────────── */
+
+.footer {
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 0.85rem;
+  font-family: "DM Sans", sans-serif;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  background: var(--glass);
+  backdrop-filter: blur(10px);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.footer a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.footer i {
+  font-size: 0.9rem;
+}
