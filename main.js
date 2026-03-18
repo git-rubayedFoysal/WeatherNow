@@ -12,6 +12,7 @@ const errorText = document.querySelector("#error-text");
  * @param message - The `message` parameter is a string that represents the error message to be
  * displayed to the user.
  */
+
 function showError(message) {
   errorText.textContent = message;
   errorMsg.classList.remove("hidden");
@@ -46,8 +47,9 @@ window.addEventListener("load", () => {
 
 // ─── Search Form ──────────────────────────────────────────────────────────────
 
-/* This code snippet is adding an event listener to the form element for the `submit` event. When the
-form is submitted (e.g., by clicking a submit button), the following actions are taken: */
+/* The code snippet `form.addEventListener("submit", (e) => { ... });` is adding an event listener to
+the submit event of the form element. When the form is submitted (e.g., by clicking a submit button
+inside the form), the callback function inside the event listener is executed. */
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 
@@ -66,12 +68,15 @@ form.addEventListener("submit", (e) => {
 // ─── API: Geocoding ───────────────────────────────────────────────────────────
 
 /**
- * The function `findLocation` asynchronously fetches the geolocation data for a given city using the
+ * The `findLocation` function in JavaScript fetches the geolocation data for a given city using the
  * OpenWeatherMap API and handles errors accordingly.
  * @param city - The `findLocation` function is an asynchronous function that takes a `city` parameter
- * as input. This function is responsible for fetching the geolocation data for the specified city
- * using the OpenWeatherMap API. Here's a breakdown of the function:
- * @returns The `findLocation` function is returning a Promise.
+ * as input. This function uses the OpenWeatherMap API to find the geographical location (latitude and
+ * longitude) of the specified city. Here is a breakdown of the function:
+ * @returns The `findLocation` function is returning the location data for the specified city,
+ * including latitude and longitude coordinates, after fetching the data from the OpenWeatherMap API.
+ * If the city is not found or there is an error during the process, appropriate error messages are
+ * displayed.
  */
 async function findLocation(city) {
   const url = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=c00ffc5e5041e452338f7b030ce4b484`;
@@ -111,11 +116,10 @@ async function findLocation(city) {
 // ─── API: Weather ─────────────────────────────────────────────────────────────
 
 /**
- * The function `findWeather` fetches weather data based on latitude and longitude coordinates and
- * updates the webpage with the current, hourly, and daily forecast.
- * @param lat - Latitude of the location for which weather data is being requested.
- * @param lon - Longitude is a geographic coordinate that specifies the east-west position of a point
- * on the Earth's surface. It is measured in degrees, with values ranging from -180 to 180.
+ * The `findWeather` function fetches weather data based on latitude and longitude, updates the UI with
+ * current and forecasted weather information, and handles errors gracefully.
+ * @param lat - Latitude of the location for which weather data is being fetched.
+ * @param lon - Longitude of the location for which weather data is being fetched.
  */
 async function findWeather(lat, lon) {
   const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,uv_index_max&hourly=temperature_2m,weather_code,precipitation_probability,precipitation&current=temperature_2m,relative_humidity_2m,is_day,wind_speed_10m,weather_code,apparent_temperature&timezone=auto`;
@@ -129,6 +133,8 @@ async function findWeather(lat, lon) {
 
     const data = await response.json();
 
+    // Use is_day from the API — it already knows whether it's day or night
+    // at the searched city's location, no need to check the hour manually
     if (data.current.is_day === 0) {
       document.body.classList.add("night");
     } else {
@@ -153,19 +159,17 @@ async function findWeather(lat, lon) {
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
 /**
- * The above JavaScript functions provide weather information based on weather code and UV index risk
- * level.
+ * The function `getWeatherInfo` determines weather information based on a given weather code and time
+ * of day, returning an icon, color, and description.
  * @param code - The `code` parameter in the `getWeatherInfo` function represents the weather condition
  * code that is used to determine the weather icon, color, and description for a specific weather
- * condition. The code is used to map to different weather conditions such as clear sky, fog, rain,
- * snow, thunderstorm
+ * condition.
  * @param isDay - The `isDay` parameter in the `getWeatherInfo` function is a boolean value that
- * indicates whether it is daytime or nighttime. It is used to determine the appropriate weather icon
- * for the given weather condition. If `isDay` is `true`, daytime weather icons are displayed;
- * otherwise, nighttime
- * @returns The `getWeatherInfo` function returns an object with properties `icon`, `color`, and
- * `description` based on the weather `code` and whether it is day or night. The `getUVRiskAndColor`
- * function returns an object with properties `risk` and `color` based on the UV index provided as
+ * indicates whether it is daytime or not. It is used to determine the appropriate weather icon for the
+ * given weather condition. If `isDay` is `true`, the function will select daytime weather icons, and
+ * @returns The `getWeatherInfo` function returns an object containing the weather icon, color, and
+ * description based on the weather code and whether it is day or night. The `getUVRiskAndColor`
+ * function returns an object containing the UV risk level and color based on the UV index provided as
  * input.
  */
 function getWeatherInfo(code, isDay) {
@@ -228,9 +232,9 @@ function getUVRiskAndColor(uv) {
  * The function `fillCurrentWeather` populates the current weather information on a webpage using data
  * retrieved from an API.
  * @param data - The `data` parameter in the `fillCurrentWeather` function seems to contain weather
- * information fetched from an API. It includes various properties such as current weather code,
- * temperature, humidity, UV index, wind speed, and other related data points. The function then
- * extracts specific data from the `data`
+ * information that includes current weather data such as weather code, temperature, humidity, UV
+ * index, wind speed, and other related details. The function then extracts specific data from the
+ * `data` object and populates various elements
  */
 function fillCurrentWeather(data) {
   const currIcon = document.querySelector("#curr-icon");
@@ -263,9 +267,9 @@ function fillCurrentWeather(data) {
 /**
  * The function `fillHourForcast` populates an hourly weather forecast section on a webpage using data
  * provided.
- * @param data - The `fillHourForcast` function takes in a `data` object as a parameter. This `data`
- * object likely contains information about the current weather conditions and hourly forecast data.
- * The function uses this data to populate an hourly forecast section on a webpage.
+ * @param data - The `data` parameter in the `fillHourForcast` function seems to contain information
+ * related to the current weather forecast. It includes details such as the current time, hourly
+ * temperature, weather code, precipitation probability, and precipitation amount for different hours.
  * @returns The function `fillHourForcast` is returning the hourly forecast data for the next 25 hours
  * based on the input data provided. It populates the hourly forecast section on a webpage with
  * information such as time, temperature, weather icon, precipitation probability, and precipitation
@@ -299,14 +303,7 @@ function fillHourForcast(data) {
     const probability = clone.querySelector("#pro");
     const sum = clone.querySelector("#rainmm");
 
-    const date = new Date(data.hourly.time[i]);
-    let hours = parseInt(
-      date.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        hour12: false,
-        timeZone: data.timezone,
-      }),
-    );
+    let hours = parseInt(data.hourly.time[i].slice(11, 13));
 
     const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12 || 12;
@@ -320,13 +317,13 @@ function fillHourForcast(data) {
     parent.appendChild(clone);
   }
 }
+
 /**
  * The `fillDailyForecase` function populates a daily weather forecast template with data provided,
  * including day names, weather icons, temperatures, and UV index.
  * @param data - The `fillDailyForecast` function takes a `data` object as a parameter. This `data`
  * object seems to contain daily weather forecast information such as time, weather code, temperature,
- * and UV index for each day. The function uses this data to populate a template with daily weather
- * forecast information and
+ * and UV index for each day.
  */
 
 function fillDailyForecase(data) {
