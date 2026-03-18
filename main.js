@@ -368,13 +368,3 @@ function fillDailyForecase(data) {
     parent.append(clone);
   }
 }
-
-/* The above code is importing the `inject` function from the `@vercel/analytics` package and then
-calling the `inject` function. The purpose of the `inject` function is to inject analytics tracking
-code into the current webpage. */
-import { inject } from "@vercel/analytics";
-
-inject();
-import { injectSpeedInsights } from "@vercel/speed-insights";
-
-injectSpeedInsights();
