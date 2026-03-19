@@ -1,3 +1,8 @@
+import { injectSpeedInsights } from '@vercel/speed-insights';
+
+// Initialize Vercel Speed Insights
+injectSpeedInsights();
+
 const city = document.querySelector("#city");
 const form = document.querySelector("form");
 const searchBtn = document.querySelector("button");
